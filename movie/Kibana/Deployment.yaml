@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: slimayadi/movie4u_kibana:latest
+        ports:
+        - containerPort: 5601
+        env:
+        - name: ELASTICSEARCH_URL
+          value: http://elasticsearch:9200
+        volumeMounts:
+        - name: kibana-config
+          mountPath: /usr/share/kibana/config
+      volumes:
+      - name: kibana-config
+        configMap:
+          name: kibanacm 
+
+

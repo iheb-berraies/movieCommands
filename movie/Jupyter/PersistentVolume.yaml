@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: jupyter-notebooks-pv
+spec:
+  capacity:
+    storage: 1Gi  # Adjust the storage capacity as needed
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/iheb/Movie4U-Python-master/jupyter_notebooks"  # Update this with the path on your host machine
+

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jupyter
+  template:
+    metadata:
+      labels:
+        app: jupyter
+    spec:
+      containers:
+      - name: jupyter
+        image: jupyter/datascience-notebook:latest
+        ports:
+        - containerPort: 8888
+        volumeMounts:
+        - name: jupyter-notebooks
+          mountPath: /home/jovyan/work
+      volumes:
+      - name: jupyter-notebooks
+        persistentVolumeClaim:
+          claimName: jupyter-notebooks-pvc  # Create a PVC for Jupyter notebooks if needed
+
